@@ -7,6 +7,9 @@ const app = express()
 // Variables de entorno
 require('dotenv').config()
 
+// Conección a la base de datos
+connectDB()
+
 // 3.RUTEO
 
 // 4.SERVIDOR
