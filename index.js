@@ -1,18 +1,43 @@
-// 1. IMPORTACIONES
-const express = require ('express')
+// 1 IMPORTACIONES
+
+const express = require('express')
 const connectDB = require('./config/db')
+const cors = require('cors')
+
 const app = express()
 
-// 2. MIDDLEWARES
-// Variables de entorno
+// 2 MIDDLEWARES
+
+// VARIABLES DE ENTORNO
 require('dotenv').config()
 
-// Conección a la base de datos
+// CONEXIÓN A DB
 connectDB()
 
-// 3.RUTEO
+// Habilitar CORS
+// cross origin resource sharing
+app.use(cors())
 
-// 4.SERVIDOR
+// ACTIVAR BODY PARSER
+app.use(express.json({extended: true}))
+
+
+// 3 RUTEO
+
+// API
+app.use('/api/proyectos', require('./routes/proyectos'))
+
+app.use('/api/instrumentos', require('./routes/instrumentos'))
+
+
+// MONITOREO (PARA VER QUE SÍ FUNCIONE)
+app.get("/", (req, res) => {
+    res.send("Hola mundo")
+})
+ 
+
+
+// 4 SERVIDOR
 app.listen(process.env.PORT, () => {
-    console.log('Servidor corriendo en el puerto: ' + process.env.PORT)
+    console.log(`Conectados al servidor en el puerto ${process.env.PORT}`)
 })
